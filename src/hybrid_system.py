@@ -2,8 +2,8 @@ from system import System
 
 
 class HybridSystem(System):
-    def __init__(self, year_usage, rated_power_solar):
-        super().__init__(year_usage)
+    def __init__(self, year_usage, rated_power_solar, kW_price):
+        super().__init__(year_usage, kW_price)
         self.rated_power_solar = rated_power_solar
         self.generate_by_month = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 

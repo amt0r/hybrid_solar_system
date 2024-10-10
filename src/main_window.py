@@ -6,15 +6,15 @@ class MainWindow:
     def __init__(self, master):
         self.master = master
         self.master.title("Hybrid system efficiency")
-        self.master.geometry("200x270+250+100")
+        self.master.geometry("200x300+250+100")
         self.master.configure(bg='black')
         
-        self.latitude_label = tk.Label(self.master, text="Latitude:", bg='black', fg='white')
+        self.latitude_label = tk.Label(self.master, text="Latitude (°):", bg='black', fg='white')
         self.latitude_label.pack()
         self.latitude_entry = tk.Entry(self.master)
         self.latitude_entry.pack()
 
-        self.longitude_label = tk.Label(self.master, text="Longitude:", bg='black', fg='white')
+        self.longitude_label = tk.Label(self.master, text="Longitude (°):", bg='black', fg='white')
         self.longitude_label.pack()
         self.longitude_entry = tk.Entry(self.master)
         self.longitude_entry.pack()
@@ -29,6 +29,11 @@ class MainWindow:
         self.generate_entry = tk.Entry(self.master)
         self.generate_entry.pack()
 
+        self.kW_price_label = tk.Label(self.master, text="Price of kW-hr:", bg='black', fg='white')
+        self.kW_price_label.pack()
+        self.kW_price_entry = tk.Entry(self.master)
+        self.kW_price_entry.pack()
+
         self.year_label = tk.Label(self.master, text="Year to modulate (YYYY):", bg='black', fg='white')
         self.year_label.pack()
         self.year_entry = tk.Entry(self.master)
@@ -42,6 +47,7 @@ class MainWindow:
         self.year_usage = 0
         self.generate = 0
         self.year = 0
+        self.kW_price = 0
 
     def submit(self):
         try:
@@ -49,6 +55,7 @@ class MainWindow:
             self.longitude = float(self.longitude_entry.get())
             self.year_usage = float(self.year_usage_entry.get())
             self.generate = float(self.generate_entry.get())
+            self.kW_price = float(self.kW_price_entry.get())
             self.year = str(self.year_entry.get())
             
             if not (-90 <= self.latitude <= 90):
@@ -63,6 +70,9 @@ class MainWindow:
             if self.generate < 0:
                 messagebox.showerror("Error", "Solar panel power must be a non negative number.")
                 return
+            if self.kW_price <0:
+                messagebox.showerror("Error", "Price of kW must be a positive number.")
+                return
             if not (1984 <= int(self.year) <=2022):
                 messagebox.showerror("Error", "Nasa API support from 1984 to 2022 years.")
                 return
@@ -72,7 +82,7 @@ class MainWindow:
             messagebox.showerror("Error", "Please enter valid numerical values.")
 
     def get_user_inputs(self):
-        return self.latitude, self.longitude, self.year_usage, self.generate, self.year
+        return self.latitude, self.longitude, self.year_usage, self.generate, self.year, self.kW_price
 
     def run(self):
         self.master.mainloop()
