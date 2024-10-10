@@ -19,7 +19,7 @@ class MainWindow:
         self.longitude_entry = tk.Entry(self.master)
         self.longitude_entry.pack()
 
-        self.year_usage_label = tk.Label(self.master, text="Yearly Usage (kWh):", bg='black', fg='white')
+        self.year_usage_label = tk.Label(self.master, text="Yearly Usage (kW-hr):", bg='black', fg='white')
         self.year_usage_label.pack()
         self.year_usage_entry = tk.Entry(self.master)
         self.year_usage_entry.pack()
